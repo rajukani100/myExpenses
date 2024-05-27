@@ -14,10 +14,10 @@ class createAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: mainBackgorund,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: mainBackgorund,
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Container(
             child: Center(
               child: Column(

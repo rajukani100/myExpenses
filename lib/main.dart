@@ -82,15 +82,15 @@ class _myAppState extends State<myApp> {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
-          child: StreamBuilder(
+      home: StreamBuilder(
         stream: FirebaseAuth.instance.userChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData &&
               FirebaseAuth.instance.currentUser!.emailVerified) {
             return Scaffold(
               backgroundColor: mainBackgorund,
-              body: Obx(() => bottomNavbarGetx.currentScreen.value),
+              body: Obx(
+                  () => SafeArea(child: bottomNavbarGetx.currentScreen.value)),
               bottomNavigationBar: Obx(() => BottomNavigationBar(
                       backgroundColor: mainColor,
                       fixedColor: mainBlack,
@@ -117,7 +117,7 @@ class _myAppState extends State<myApp> {
             );
           }
         },
-      )),
+      ),
     );
   }
 }

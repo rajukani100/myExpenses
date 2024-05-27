@@ -26,10 +26,10 @@ class editRecordEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: mainBackgorund,
-        body: Column(
+    return Scaffold(
+      backgroundColor: mainBackgorund,
+      body: SafeArea(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
