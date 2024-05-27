@@ -1,5 +1,6 @@
  
 <h1 align="center">myExpenses</h1>
+<h6 align="center">Made with Flutter (3.19.5)</h6>
 
 **myExpenses** is the ultimate expense tracker app designed to help you manage and track your daily spending with ease. The app offers various features to help you stay organized and make informed financial decisions.
 
