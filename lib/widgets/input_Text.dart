@@ -21,6 +21,7 @@ class inputText extends StatelessWidget {
       controller: controller,
       keyboardType: (!isNum) ? TextInputType.text : TextInputType.number,
       obscureText: isPass,
+      autofocus: true,
       decoration: InputDecoration(
           labelText: inputString,
           contentPadding:
