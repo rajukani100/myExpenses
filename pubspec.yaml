@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^6.2.1
   flutter_native_splash: ^2.4.0
   connectivity_plus: ^6.0.3
+  package_info_plus: ^8.0.0
   
 flutter_native_splash:
   android: true
