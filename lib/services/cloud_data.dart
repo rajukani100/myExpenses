@@ -59,7 +59,7 @@ class cloudData {
       await FirebaseFirestore.instance
           .collection('records')
           .doc("${FirebaseAuth.instance.currentUser!.email}")
-          .set({"${data["id"]}": data}, SetOptions(merge: true));
+          .set({"${data["id"]}": data});
     } catch (e) {
       //error
     }
