@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 void showSnackBar(BuildContext context, String text, Color c) {
+  ScaffoldMessenger.of(context).clearSnackBars();
   final snackBar = SnackBar(
     content: Text(text),
     backgroundColor: c,
