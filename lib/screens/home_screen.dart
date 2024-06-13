@@ -17,6 +17,8 @@ final currentDate =
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 ExpensesGetx expensesGetx = ExpensesGetx();
 
+bool isFirstTime = true;
+
 class myHome extends StatefulWidget {
   myHome({super.key});
 
@@ -44,6 +46,12 @@ class _myHomeState extends State<myHome> {
 
   @override
   Widget build(BuildContext context) {
+    //App update
+    if (isFirstTime) {
+      checkAppUpdate(context);
+      isFirstTime = false;
+    }
+
     return Stack(
       children: [
         Center(

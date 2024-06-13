@@ -15,6 +15,9 @@ import 'package:my_expense/screens/no_internet_screen.dart';
 import 'package:my_expense/utils/color.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +32,6 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   FlutterNativeSplash.remove();
-
   runApp(myApp());
 }
 
@@ -46,6 +48,50 @@ class myApp extends StatefulWidget {
 
   @override
   State<myApp> createState() => _myAppState();
+}
+
+Future<void> checkAppUpdate(BuildContext context) async {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+  String currentAppVersion = packageInfo.version;
+
+  http.Response latestAppVersion = await http.get(Uri.parse(
+      "https://raw.githubusercontent.com/rajukani100/myExpenses/main/VERSION_INFO"));
+  if (latestAppVersion.body.compareTo(currentAppVersion) != 0) {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Update"),
+          content: Text("Exciting news! A new app update is available now!"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                "skip",
+                style: TextStyle(color: mainColor),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (await canLaunchUrl(Uri.parse(
+                    "https://github.com/rajukani100/myExpenses/releases/latest"))) {
+                  await launchUrl(
+                    Uri.parse(
+                        "https://github.com/rajukani100/myExpenses/releases/latest"),
+                    mode: LaunchMode.externalApplication,
+                  );
+                }
+              },
+              child: Text(
+                "Download",
+                style: TextStyle(color: mainColor),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 void checkConnectivity(List<ConnectivityResult> result) {
