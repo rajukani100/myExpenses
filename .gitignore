@@ -5,6 +5,11 @@ firebase_options.dart
 .flutter-plugins
 .flutter-plugins-dependencies
 .dart_tool/
+ios/
+web/
+windows/
+macos/
+linux/
 android/.gradle/
 android/app/build/
 android\app\google-services.json
