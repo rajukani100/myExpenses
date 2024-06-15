@@ -51,8 +51,7 @@ class noInternetScreen extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
-              var result = await Connectivity().checkConnectivity();
-              checkConnectivity(result);
+              checkConnectivity();
             },
             child: Container(
               height: height55,

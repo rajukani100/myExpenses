@@ -94,7 +94,9 @@ Future<void> checkAppUpdate(BuildContext context) async {
   }
 }
 
-void checkConnectivity(List<ConnectivityResult> result) {
+void checkConnectivity() async {
+  List<ConnectivityResult> result = await Connectivity().checkConnectivity();
+
   if (!result.contains(ConnectivityResult.wifi) &&
       !result.contains(ConnectivityResult.mobile) &&
       !result.contains(ConnectivityResult.vpn)) {
@@ -110,8 +112,9 @@ class _myAppState extends State<myApp> {
   @override
   void initState() {
     super.initState();
-    subscription =
-        Connectivity().onConnectivityChanged.listen(checkConnectivity);
+    Timer.periodic(Duration(milliseconds: 300), (timer) {
+      checkConnectivity();
+    });
   }
 
   @override
