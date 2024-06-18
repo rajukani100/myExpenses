@@ -56,10 +56,17 @@ class cloudData {
 
   static Future<void> updateExpenseDetailData(Map data) async {
     try {
+      // first removing data
       await FirebaseFirestore.instance
           .collection('records')
           .doc("${FirebaseAuth.instance.currentUser!.email}")
-          .set({"${data["id"]}": data});
+          .set({"${data["id"]}": FieldValue.delete()}, SetOptions(merge: true));
+
+      // again writing data
+      await FirebaseFirestore.instance
+          .collection('records')
+          .doc("${FirebaseAuth.instance.currentUser!.email}")
+          .set({"${data["id"]}": data}, SetOptions(merge: true));
     } catch (e) {
       //error
     }

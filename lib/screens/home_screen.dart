@@ -1,7 +1,9 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:my_expense/getx/models/records_getx.dart';
 import 'package:my_expense/getx/expenses_getx.dart';
 import 'package:my_expense/main.dart';
@@ -32,16 +34,25 @@ class _myHomeState extends State<myHome> {
   @override
   void initState() {
     super.initState();
+    loadData();
+  }
+
+  void loadData() async {
     // first try to load data in offline mode, if no data found then it will try in online mode
-    FirebaseAuth.instance.currentUser!.reload();
-    expensesGetx.expenses.clear();
-    for (Map data in expensesGetx.getLocalData()!) {
-      expensesGetx.jsonToExpense(data);
+    http.Response test = await http.get(Uri.parse(
+        "https://raw.githubusercontent.com/rajukani100/myExpenses/main/VERSION_INFO"));
+    if (test.statusCode == 200) {
+      checkConnectivity(await Connectivity().checkConnectivity());
+      FirebaseAuth.instance.currentUser!.reload();
+      expensesGetx.expenses.clear();
+      for (Map data in expensesGetx.getLocalData()!) {
+        expensesGetx.jsonToExpense(data);
+      }
+      if (expensesGetx.getLocalData()!.isEmpty) {
+        cloudData.fetchData();
+      }
+      expensesGetx.expenses.sort((a, b) => UserRecord.compareById(b, a));
     }
-    if (expensesGetx.getLocalData()!.isEmpty) {
-      cloudData.fetchData();
-    }
-    expensesGetx.expenses.sort((a, b) => UserRecord.compareById(b, a));
   }
 
   @override
@@ -143,9 +154,12 @@ class _myHomeState extends State<myHome> {
                         child: RefreshIndicator(
                         color: mainColor,
                         onRefresh: () async {
-                          expensesGetx.expenses.clear();
-
-                          cloudData.fetchData();
+                          http.Response test = await http.get(Uri.parse(
+                              "https://raw.githubusercontent.com/rajukani100/myExpenses/main/VERSION_INFO"));
+                          if (test.statusCode == 200) {
+                            expensesGetx.expenses.clear();
+                            cloudData.fetchData();
+                          }
                         },
                         child: Container(
                           child: ListView.separated(
