@@ -22,6 +22,20 @@ class ExpensesGetx extends GetxController {
     return total;
   }
 
+  String getSubDetails(int index) {
+    // it will provide expense data at particular date by index
+    String data = "";
+    expenses[index].subDetails.forEach((key, pair) {
+      data += "${key.toString()} : ${pair.toString()}\n";
+    });
+    return data;
+  }
+
+  String getDate(int index) {
+    // it will provide date by index
+    return "${expenses[index].id.value.day.toString()}-${expenses[index].id.value.month.toString()}-${expenses[index].id.value.year.toString()}";
+  }
+
   void removeRecord(UserRecord obj) {
     expenses.remove(obj);
     updateLocalData();

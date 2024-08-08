@@ -1,16 +1,23 @@
+import 'dart:io';
+
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:my_expense/main.dart';
 import 'package:my_expense/screens/home_screen.dart';
 import 'package:my_expense/utils/color.dart';
 import 'package:my_expense/utils/responsive.dart';
 import 'package:my_expense/widgets/custom_button.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:path_provider/path_provider.dart';
+import 'package:printing/printing.dart';
 
 class Calculate extends StatelessWidget {
   Calculate({super.key});
 
-  late final toDate, fromDate;
+  late var toDate, fromDate;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +32,7 @@ class Calculate extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "From",
+                  "From ",
                   style: TextStyle(
                       fontFamily: 'Gotham_black',
                       fontStyle: FontStyle.normal,
@@ -63,9 +70,7 @@ class Calculate extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Obx(() => Text(
-                                helperGetx.toDate[0] == null
-                                    ? "select date"
-                                    : "${helperGetx.fromDate[0].day}-${helperGetx.fromDate[0].month}-${helperGetx.fromDate[0].year}",
+                                "${helperGetx.fromDate[0].day}-${helperGetx.fromDate[0].month}-${helperGetx.fromDate[0].year}",
                                 style: TextStyle(
                                   fontFamily: 'Gotham',
                                   fontStyle: FontStyle.normal,
@@ -192,7 +197,7 @@ class Calculate extends StatelessWidget {
             child: Container(
               height: height55,
               width: width350,
-              child: customButton(value: "calculate"),
+              child: customButton(value: "Calculate"),
             ),
           ),
           SizedBox(
