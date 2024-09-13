@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_expense/screens/calculator.dart';
 import 'package:my_expense/screens/home_screen.dart';
+import 'package:my_expense/screens/noteScreen.dart';
 import 'package:my_expense/screens/setting_screen.dart';
 
 class BottomNavbarGetx extends GetxController {
@@ -19,9 +20,12 @@ class BottomNavbarGetx extends GetxController {
         currentScreen.value = myHome();
         break;
       case 1:
-        currentScreen.value = Calculate();
+        currentScreen.value = noteScreen();
         break;
       case 2:
+        currentScreen.value = Calculate();
+        break;
+      case 3:
         currentScreen.value = mySetting();
         break;
     }
