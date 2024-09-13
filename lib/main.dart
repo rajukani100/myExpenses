@@ -151,6 +151,8 @@ class _myAppState extends State<myApp> {
                         BottomNavigationBarItem(
                             icon: Icon(Icons.home), label: "Home"),
                         BottomNavigationBarItem(
+                            icon: Icon(Icons.note), label: "Note"),
+                        BottomNavigationBarItem(
                             icon: Icon(Icons.calculate), label: "Calculate"),
                         BottomNavigationBarItem(
                             icon: Icon(Icons.settings), label: "Setting"),
