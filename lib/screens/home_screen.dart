@@ -35,6 +35,11 @@ class _myHomeState extends State<myHome> {
   void initState() {
     super.initState();
     loadData();
+    helperGetNotes();
+  }
+
+  Future<void> helperGetNotes() async {
+    helperGetx.noteController.value.text = await cloudData.getNotes();
   }
 
   void loadData() async {
