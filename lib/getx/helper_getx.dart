@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HelperGetx extends GetxController {
   RxBool isLoading = false.obs;
+  Rx<TextEditingController> noteController = Rx(TextEditingController());
 
   RxList dateRange = <dynamic>[].obs;
 
