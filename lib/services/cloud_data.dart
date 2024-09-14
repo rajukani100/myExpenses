@@ -89,4 +89,28 @@ class cloudData {
       //error
     }
   }
+
+  static Future<void> writeNotes(String value) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("notes")
+          .doc("${FirebaseAuth.instance.currentUser!.email}")
+          .set({"note": value});
+    } catch (e) {
+      //error
+    }
+  }
+
+  static Future<String> getNotes() async {
+    try {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection("notes")
+          .doc("${FirebaseAuth.instance.currentUser!.email}")
+          .get();
+      return documentSnapshot.get('note');
+    } catch (e) {
+      //error
+    }
+    return "";
+  }
 }
